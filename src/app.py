@@ -4,7 +4,7 @@ from craigslist_scan import scan_craigslist
 from reddit_scan import scan_reddit
 from master_scan import scan_all
 from extra_scan import scan_extra
-from pync import Notifier
+
 
 st.set_page_config(page_title="DFW Tree Lead Radar", layout="wide")
 
@@ -27,7 +27,4 @@ if st.button("Scan Now"):
         st.success(f"Found {len(df)} possible leads")
         st.dataframe(df, use_container_width=True)
     
-        Notifier.notify(
-            f"{len(df)} new tree leads found",
-            title="🌳 Lead Radar Alert"
-        )
+        

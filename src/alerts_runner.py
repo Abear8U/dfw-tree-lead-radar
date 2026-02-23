@@ -8,7 +8,7 @@ from craigslist_scan import scan_craigslist
 load_dotenv()
 
 SEEN_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "seen.json")
-MIN_SCORE_TO_TEXT = 6
+MIN_SCORE_TO_TEXT = int(os.getenv("MIN_SCORE_TO_TEXT", "6"))
 
 def load_seen():
     try:
@@ -28,7 +28,7 @@ def send_sms(body: str):
     from_num = os.getenv("TWILIO_FROM_NUMBER")
     to_num = os.getenv("ALERT_TO_NUMBER")
     if not all([sid, token, from_num, to_num]):
-        raise RuntimeError("Missing Twilio env vars")
+        raise RuntimeError("Missing Twilio env vars (SID/TOKEN/FROM/TO).")
 
     Client(sid, token).messages.create(body=body, from_=from_num, to=to_num)
 
